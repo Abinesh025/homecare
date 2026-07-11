@@ -1,7 +1,6 @@
 import React from "react";
 import {
   SafeAreaView,
-  ScrollView,
   View,
   Text,
   Image,
@@ -25,19 +24,15 @@ const providerHeight = providerWidth / 1.15; // provider.png aspect ratio (542x4
 const cityWidth = screenWidth;
 const cityHeight = screenHeight * 0.30; // city.png skyline aspect ratio — adjust to match your actual asset
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
         {/* Header Section */}
         <View style={styles.headerSection}>
           <Image
-            source={require("../assets/images/cloud.png")}
+            source={require("../assets/images/cloud.jpeg")}
             style={styles.headerBg}
             resizeMode="cover"
           />
@@ -51,7 +46,7 @@ const WelcomeScreen = () => {
         {/* Middle Section: Logo, Title & Feature Cards */}
         <View style={styles.middleSection}>
           <Image
-            source={require("../assets/images/home.png")}
+            source={require("../assets/images/logo.jpeg")}
             style={styles.logoImage}
             resizeMode="contain"
           />
@@ -66,7 +61,7 @@ const WelcomeScreen = () => {
                 <MaterialCommunityIcons
                   name="calendar-check-outline"
                   size={26}
-                  color="#12B133"
+                  color="#da8415"
                 />
               </View>
               <Text style={styles.featureLabel}>Get Bookings{"\n"}Daily</Text>
@@ -74,14 +69,14 @@ const WelcomeScreen = () => {
 
             <View style={styles.featureItem}>
               <View style={styles.featureIconContainer}>
-                <Ionicons name="location-outline" size={26} color="#12B133" />
+                <Ionicons name="location-outline" size={26} color="#da8415" />
               </View>
               <Text style={styles.featureLabel}>Reach & Serve{"\n"}Customers</Text>
             </View>
 
             <View style={styles.featureItem}>
               <View style={styles.featureIconContainer}>
-                <Ionicons name="wallet-outline" size={26} color="#12B133" />
+                <Ionicons name="wallet-outline" size={26} color="#da8415" />
               </View>
               <Text style={styles.featureLabel}>Earn More{"\n"}Everyday</Text>
             </View>
@@ -90,15 +85,15 @@ const WelcomeScreen = () => {
 
         {/* Bottom Section: City Skyline & Button */}
         <ImageBackground
-          source={require("../assets/images/city.png")}
+          source={require("../assets/images/city.jpeg")}
           style={styles.cityBg}
           resizeMode="cover"
         >
-          <TouchableOpacity style={styles.startButton} activeOpacity={0.85}>
+          <TouchableOpacity style={styles.startButton} activeOpacity={0.85} onPress={()=>navigation.navigate("Register")}>
             <Text style={styles.startButtonText}>Let's Get Started</Text>
           </TouchableOpacity>
         </ImageBackground>
-      </ScrollView>
+     
     </SafeAreaView>
   );
 };
@@ -119,9 +114,9 @@ const styles = StyleSheet.create({
 
 headerSection: {
   width: "100%",
-  height: screenHeight * 0.42,
+  height: screenHeight * 0.40,
   overflow: "hidden",
-  marginTop:-40
+  marginTop: 0
 },
 
 headerBg: {
@@ -131,10 +126,10 @@ headerBg: {
 
 providerImage: {
   position: "absolute",
-  bottom: -10,
+  bottom: 20,
   alignSelf: "center",
-  width: screenWidth * 1.06,
-  height: 340,
+  width: screenWidth * 1.08,
+  height: 320,
   aspectRatio:542/460
 },
 
@@ -142,24 +137,24 @@ middleSection: {
   width: "100%",
   alignItems: "center",
   paddingHorizontal: 24,
-  marginTop: -110,
+  marginTop: -145,
 },
 
 logoImage: {
-  width: 315,
+  width: 400,
   height: undefined,
   aspectRatio: 1,
   alignSelf: "center",
 },
 
   headingText: {
-    fontSize: 20,
-    fontWeight: "900",
+    fontSize: 35,
+    fontWeight: "bold",
     textAlign: "center",
     color: "#0F172A",
-    lineHeight: 30,
-    marginTop: -102,
-    marginBottom: 8,
+    lineHeight: 47,
+    marginTop: -152,
+    marginBottom: 20,
   },
 
   featuresContainer: {
@@ -196,21 +191,21 @@ logoImage: {
   cityBg: {
   width: "100%",
   height: screenHeight * 0.35,
-  marginTop:0,
-  marginBottom:-40,
+  marginTop:-10,
+  marginBottom: -10,
   justifyContent: "flex-end",
   alignItems: "center",
-  paddingBottom: 100,
+  paddingBottom: 75,
 },
 
   startButton: {
     width: "80%",
     height: 56,
-    backgroundColor: "#50ac62",
+    backgroundColor: "#120a3d",
     borderRadius: 14,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#12B133",
+    shadowColor: "#080837",
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.2,
     shadowRadius: 10,
