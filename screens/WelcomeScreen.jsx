@@ -2,6 +2,7 @@ import React from "react";
 import {
   SafeAreaView,
   View,
+  ScrollView,
   Text,
   Image,
   ImageBackground,
@@ -10,6 +11,11 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
+import {
+  scale,
+  verticalScale,
+  moderateScale,
+} from "react-native-size-matters";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
@@ -27,74 +33,105 @@ const cityHeight = screenHeight * 0.30; // city.png skyline aspect ratio — adj
 const WelcomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+  <StatusBar
+    barStyle="dark-content"
+    backgroundColor="transparent"
+    translucent
+  />
 
-        {/* Header Section */}
-        <View style={styles.headerSection}>
-          <Image
-            source={require("../assets/images/cloud.jpeg")}
-            style={styles.headerBg}
-            resizeMode="cover"
-          />
-          <Image
-            source={require("../assets/images/provider.png")}
-            style={styles.providerImage}
-            resizeMode="contain"
-          />
-        </View>
+  <ScrollView
+    contentContainerStyle={styles.scrollContent}
+    showsVerticalScrollIndicator={false}
+  >
+    {/* Header */}
+    <View style={styles.headerSection}>
+      <Image
+        source={require("../assets/images/cloud.jpeg")}
+        style={styles.headerBg}
+        resizeMode="cover"
+      />
 
-        {/* Middle Section: Logo, Title & Feature Cards */}
-        <View style={styles.middleSection}>
-          <Image
-            source={require("../assets/images/logo.jpeg")}
-            style={styles.logoImage}
-            resizeMode="contain"
-          />
+      <Image
+        source={require("../assets/images/provider.png")}
+        style={styles.providerImage}
+        resizeMode="contain"
+      />
+    </View>
 
-          <Text style={styles.headingText}>
-            Services that make{"\n"}homes better
-          </Text>
+    {/* Middle */}
+    <View style={styles.middleSection}>
+      <Image
+        source={require("../assets/images/logo.jpeg")}
+        style={styles.logoImage}
+      />
 
-          <View style={styles.featuresContainer}>
-            <View style={styles.featureItem}>
-              <View style={styles.featureIconContainer}>
-                <MaterialCommunityIcons
-                  name="calendar-check-outline"
-                  size={26}
-                  color="#da8415"
-                />
-              </View>
-              <Text style={styles.featureLabel}>Get Bookings{"\n"}Daily</Text>
-            </View>
+      <Text style={styles.headingText}>
+        Services that make{"\n"}homes better
+      </Text>
 
-            <View style={styles.featureItem}>
-              <View style={styles.featureIconContainer}>
-                <Ionicons name="location-outline" size={26} color="#da8415" />
-              </View>
-              <Text style={styles.featureLabel}>Reach & Serve{"\n"}Customers</Text>
-            </View>
-
-            <View style={styles.featureItem}>
-              <View style={styles.featureIconContainer}>
-                <Ionicons name="wallet-outline" size={26} color="#da8415" />
-              </View>
-              <Text style={styles.featureLabel}>Earn More{"\n"}Everyday</Text>
-            </View>
+      <View style={styles.featuresContainer}>
+        {/* Feature 1 */}
+        <View style={styles.featureItem}>
+          <View style={styles.featureIconContainer}>
+            <MaterialCommunityIcons
+              name="calendar-check-outline"
+              size={26}
+              color="#da8415"
+            />
           </View>
+          <Text style={styles.featureLabel}>
+            Get Bookings{"\n"}Daily
+          </Text>
         </View>
 
-        {/* Bottom Section: City Skyline & Button */}
-        <ImageBackground
-          source={require("../assets/images/city.jpeg")}
-          style={styles.cityBg}
-          resizeMode="cover"
-        >
-          <TouchableOpacity style={styles.startButton} activeOpacity={0.85} onPress={()=>navigation.navigate("Register")}>
-            <Text style={styles.startButtonText}>Let's Get Started</Text>
-          </TouchableOpacity>
-        </ImageBackground>
-     
-    </SafeAreaView>
+        {/* Feature 2 */}
+        <View style={styles.featureItem}>
+          <View style={styles.featureIconContainer}>
+            <Ionicons
+              name="location-outline"
+              size={26}
+              color="#da8415"
+            />
+          </View>
+          <Text style={styles.featureLabel}>
+            Reach & Serve{"\n"}Customers
+          </Text>
+        </View>
+
+        {/* Feature 3 */}
+        <View style={styles.featureItem}>
+          <View style={styles.featureIconContainer}>
+            <Ionicons
+              name="wallet-outline"
+              size={26}
+              color="#da8415"
+            />
+          </View>
+          <Text style={styles.featureLabel}>
+            Earn More{"\n"}Everyday
+          </Text>
+        </View>
+      </View>
+    </View>
+
+    {/* Bottom */}
+    <ImageBackground
+      source={require("../assets/images/city.jpeg")}
+      style={styles.cityBg}
+      resizeMode="cover"
+    >
+      <TouchableOpacity
+        style={styles.startButton}
+        activeOpacity={0.85}
+        onPress={() => navigation.navigate("Register")}
+      >
+        <Text style={styles.startButtonText}>
+          Let's Get Started
+        </Text>
+      </TouchableOpacity>
+    </ImageBackground>
+  </ScrollView>
+</SafeAreaView>
   );
 };
 
@@ -108,61 +145,67 @@ const styles = StyleSheet.create({
 
   scrollContent: {
     flexGrow: 1,
-    alignItems: "center",
-    paddingTop: StatusBar.currentHeight || 20,
+  
+    justifyContent:"space-between",
+   
+    
   },
 
-headerSection: {
-  width: "100%",
-  height: screenHeight * 0.40,
-  overflow: "hidden",
-  marginTop: 0
-},
+  // Header
+  headerSection: {
+    width: "100%",
+    height: verticalScale(260),
+    overflow: "hidden",
+  },
 
-headerBg: {
-  width: "100%",
-  height: "100%",
-},
+  headerBg: {
+    width: "100%",
+    height: "100%",
+  },
 
-providerImage: {
-  position: "absolute",
-  bottom: 20,
-  alignSelf: "center",
-  width: screenWidth * 1.08,
-  height: 320,
-  aspectRatio:542/460
-},
+  providerImage: {
+    position: "absolute",
+    bottom: -verticalScale(55),
+    alignSelf: "center",
+    width: scale(270),
+    aspectRatio: 542 / 460,
+    resizeMode: "contain",
+  },
 
-middleSection: {
-  width: "100%",
-  alignItems: "center",
-  paddingHorizontal: 24,
-  marginTop: -145,
-},
+  // Middle
+  middleSection: {
+    width: "100%",
+    alignItems: "center",
+    paddingHorizontal: moderateScale(24),
+    marginBottom: verticalScale(57),
+  },
 
-logoImage: {
-  width: 400,
-  height: undefined,
-  aspectRatio: 1,
-  alignSelf: "center",
-},
+  logoImage: {
+    width: scale(190),
+     height: verticalScale(65),
+     aspectRatio: 612 / 120,
+    resizeMode: "contain",
+    alignSelf: "center",
+  },
 
   headingText: {
-    fontSize: 35,
+    fontSize: moderateScale(32),
     fontWeight: "bold",
     textAlign: "center",
     color: "#0F172A",
-    lineHeight: 47,
-    marginTop: -152,
-    marginBottom: 20,
+    lineHeight: moderateScale(40),
+    marginTop: verticalScale(20),
+    marginBottom: verticalScale(20),
+    paddingHorizontal: moderateScale(20),
   },
 
+  // Features
   featuresContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    paddingVertical: 16,
-    paddingHorizontal: 12
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: moderateScale(12),
   },
 
   featureItem: {
@@ -173,48 +216,51 @@ logoImage: {
   featureIconContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#a0e1ad38",
-    borderRadius:10,
-    padding:10
+    backgroundColor: "#f9deae38",
+    borderRadius: moderateScale(10),
+    padding: moderateScale(12),
   },
 
   featureLabel: {
-    marginTop: 10,
-    fontSize: 12,
+    marginTop: verticalScale(8),
+    fontSize: moderateScale(13),
     fontWeight: "600",
     textAlign: "center",
     color: "#1E293B",
-    lineHeight: 16,
+    lineHeight: moderateScale(18),
   },
 
-  // ---- Bottom ----
+  // Bottom
   cityBg: {
-  width: "100%",
-  height: screenHeight * 0.35,
-  marginTop:-10,
-  marginBottom: -10,
-  justifyContent: "flex-end",
-  alignItems: "center",
-  paddingBottom: 75,
-},
+    width: "100%",
+    aspectRatio: 1024 / 420,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginTop: verticalScale(10),
+    paddingBottom: verticalScale(24),
+  },
 
   startButton: {
-    width: "80%",
-    height: 56,
+    width: "85%",
+    height: verticalScale(56),
     backgroundColor: "#120a3d",
-    borderRadius: 14,
+    borderRadius: moderateScale(14),
     justifyContent: "center",
     alignItems: "center",
+
     shadowColor: "#080837",
-    shadowOffset: { width: 0, height: 6 },
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
     shadowOpacity: 0.2,
     shadowRadius: 10,
-    elevation: 0,
+    elevation: 5,
   },
 
   startButtonText: {
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: "700",
   },
 });
